@@ -1,7 +1,7 @@
-GET http://localhost:3000/course
+GET http://localhost:8080/course/
 
 ###
-GET http://localhost:3000/streams/B.com
+GET http://localhost:8080/streams/B.com/
 
 ###
-GET http://localhost:3000/universitys
+GET http://localhost:8080/universitys/

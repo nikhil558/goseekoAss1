@@ -1,0 +1,44 @@
+.stream-container {
+  width: 622px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stream-heading {
+  font-family: Flama;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 10px;
+  color: #000000;
+  margin-top: 0px;
+}
+.see-all {
+  font-family: Raleway;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 10px;
+  margin-top: 0px;
+  text-align: center;
+  color: #000000;
+}
+.each-stream {
+  width: 622px;
+  height: 46px;
+  background: #ffffff;
+  opacity: 0.4;
+  border: 1px solid #8c8896;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  padding-left: 16px;
+}
+.each-stream-name {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  color: #000000;
+}

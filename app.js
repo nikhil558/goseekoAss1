@@ -15,8 +15,8 @@ const initializeDBAndServer = async () => {
       filename: dbPath,
       driver: sqlite3.Database,
     });
-    app.listen(3000, () => {
-      console.log("Server Running at http://localhost:3000/");
+    app.listen(5000, () => {
+      console.log("Server Running at http://localhost:8080/");
     });
   } catch (e) {
     console.log(`DB Error: ${e.message}`);
@@ -47,7 +47,7 @@ app.get("/course", async (request, response) => {
     FROM
       course;`;
   const Array1 = await db.all(getResults);
-  response.send(Array1.map((each) => dbtoResponse(each)));
+  response.send(Array1);
 });
 
 //Get streams API
@@ -61,7 +61,7 @@ app.get("/streams/:stream", async (request, response) => {
     WHERE
     course_name="${stream}"`;
   const Array1 = await db.all(getResults);
-  response.send(Array1.map((each) => dbtoResponseStreams(each)));
+  response.send(Array1);
 });
 
 //GET Universitys API
@@ -72,5 +72,5 @@ app.get("/universitys", async (request, response) => {
     FROM
       university;`;
   const Array1 = await db.all(getResults);
-  response.send(Array1.map((each) => dbtoResponseUniversity(each)));
+  response.send(Array1);
 });
