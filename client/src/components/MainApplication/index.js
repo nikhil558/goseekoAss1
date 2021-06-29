@@ -9,11 +9,20 @@ class MainApplication extends Component {
     coursesData: [],
     streamsData: [],
     universitiesData: [],
+    sems: [1, 2, 3, 4, 5, 6, 7, 8],
     courseClicked: false,
     streamClicked: true,
+    universityClicked: false,
     showData: false,
     eventCourse: "BE",
     eventStream: "",
+    filterValues: "",
+    showFilterValues: false,
+    eventUniversity: "",
+    showUniversityClick: false,
+    showSemisters: false,
+    eventSem: "",
+    showEventSem: false,
   };
 
   componentDidMount() {
@@ -59,24 +68,71 @@ class MainApplication extends Component {
       eventStream: selectValue,
       courseClicked: false,
       showData: true,
+      universityClicked: true,
     });
   };
 
+  editBtnClicked = () => {
+    this.setState({
+      showData: false,
+      streamClicked: true,
+      universityClicked: false,
+    });
+  };
+
+  searchingInput = (event) => {
+    this.setState({ filterValues: event.target.value, showFilterValues: true });
+  };
+
+  university = (event) => {
+    const { param } = event.target.dataset;
+    this.setState({
+      eventUniversity: param,
+      showFilterValues: false,
+      universityClicked: false,
+      showUniversityClick: true,
+      showSemisters: true,
+    });
+  };
+
+  universityEdit = () => {
+    this.setState({ showUniversityClick: false, universityClicked: true });
+  };
+
+  semClicks = (event) => {
+    const { param } = event.target.dataset;
+    this.setState({
+      showEventSem: true,
+      eventSem: `Sem ${param}`,
+      showSemisters: false,
+    });
+  };
+  editSem = () => {
+    this.setState({ showEventSem: false, showSemisters: true });
+  };
   render() {
     const {
       coursesData,
       eventCourse,
       eventStream,
       universitiesData,
+      universityClicked,
       courseClicked,
       streamClicked,
       showData,
+      filterValues,
+      showFilterValues,
+      showUniversityClick,
+      eventUniversity,
+      showSemisters,
+      sems,
+      showEventSem,
+      eventSem,
     } = this.state;
-    const styles = {
-      width: "200px",
-      display: "inline-table",
-      verticalAlign: "top",
-    };
+    console.log(filterValues);
+    const filterData = universitiesData.filter((each) =>
+      each.universityName.toLowerCase().includes(filterValues.toLowerCase())
+    );
     return (
       <div>
         <nav>
@@ -188,9 +244,78 @@ class MainApplication extends Component {
               {showData && (
                 <div className="container-result">
                   <p className="streamResult">{eventStream}</p>
-                  <p className="edit-button">Edit</p>
+                  <p className="edit-button" onClick={this.editBtnClicked}>
+                    Edit
+                  </p>
                 </div>
               )}
+              <p className="step2">Step 2</p>
+              <p className="university-heading">Your University</p>
+              {universityClicked && (
+                <div className="search-container">
+                  <div className="search-bar">
+                    <input
+                      type="search"
+                      className="input1"
+                      placeholder="Search..."
+                      onChange={this.searchingInput}
+                    />
+                    <img
+                      src="https://res.cloudinary.com/dsqwm3c9a/image/upload/v1624891904/Vector_e2co9e.svg"
+                      alt="search"
+                      className="search-icon"
+                    />
+                  </div>
+                  {showFilterValues && (
+                    <div>
+                      <hr />
+                      {filterData.map((each) => (
+                        <p
+                          data-param={each.universityName}
+                          onClick={this.university}
+                        >
+                          {each.universityName}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+              {showUniversityClick && (
+                <div className="container-result">
+                  <p className="streamResult">{eventUniversity}</p>
+                  <p className="edit-button" onClick={this.universityEdit}>
+                    Edit
+                  </p>
+                </div>
+              )}
+              <p className="step2">Step 3</p>
+              <p className="university-heading">Your Sem/Year</p>
+              {showSemisters && (
+                <div className="courses-container">
+                  {sems.map((each) => (
+                    <div className="each-course-container">
+                      <p
+                        className="each-course"
+                        data-param={each}
+                        onClick={this.semClicks}
+                      >
+                        Sem {each}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {showEventSem && (
+                <div className="container-result">
+                  <p className="streamResult">{eventSem}</p>
+                  <p className="edit-button" onClick={this.editSem}>
+                    Edit
+                  </p>
+                </div>
+              )}
+              <p className="step2">Step 4</p>
+              <p className="university-heading">Try for free</p>
             </div>
           </div>
         </div>
